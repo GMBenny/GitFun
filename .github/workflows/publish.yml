@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Angular
         working-directory: git-fun-angular
-        run: npm run build -- --base-href /GitFun/
+        run: npm run build -- --base-href /
 
       - name: Upload til Simply
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
