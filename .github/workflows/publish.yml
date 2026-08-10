@@ -32,9 +32,9 @@ jobs:
       - name: Upload til Simply
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
-          server: ${{ secrets.SIMPLY_FTP_SERVER }}
-          username: ${{ secrets.SIMPLY_FTP_USERNAME }}
-          password: ${{ secrets.SIMPLY_FTP_PASSWORD }}
+          server: ${{ secrets.SIMPLY_FTP_SERVER }} # Disse secrets kan findes på: https://github.com/GMBenny/GitFun/settings/secrets/actions
+          username: ${{ secrets.SIMPLY_FTP_USERNAME }}  # De kan også findes med: gh secret list
+          password: ${{ secrets.SIMPLY_FTP_PASSWORD }}  # De kan sættes med: gh secret set SIMPLY_FTP_USERNAME --body "dit-brugernavn"
           protocol: ftps
           local-dir: ./git-fun-angular/dist/git-fun-angular/browser/
           server-dir: /test/
