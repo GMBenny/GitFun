@@ -34,7 +34,7 @@ jobs:
         run: npm run build -- --base-href /GitFun/
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -56,4 +56,4 @@ jobs:
     steps:
       - name: Deploy til GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
