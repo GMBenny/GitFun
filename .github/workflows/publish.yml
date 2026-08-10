@@ -1,0 +1,41 @@
+name: Publish to Simply
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hent repository
+        uses: actions/checkout@v5
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: git-fun-angular/package-lock.json
+
+      - name: Installer dependencies
+        working-directory: git-fun-angular
+        run: npm ci
+
+      - name: Build Angular
+        working-directory: git-fun-angular
+        run: npm run build -- --base-href /GitFun/
+
+      - name: Upload til Simply
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.SIMPLY_FTP_SERVER }} # Disse secrets kan findes på: https://github.com/GMBenny/GitFun/settings/secrets/actions
+          username: ${{ secrets.SIMPLY_FTP_USERNAME }}  # De kan også findes med: gh secret list
+          password: ${{ secrets.SIMPLY_FTP_PASSWORD }}  # De kan sættes med: gh secret set SIMPLY_FTP_USERNAME --body "dit-brugernavn"
+          protocol: ftps
+          local-dir: ./git-fun-angular/dist/git-fun-angular/browser/
+          server-dir: /test/
+          dangerous-clean-slate: false
